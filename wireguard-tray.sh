@@ -6,8 +6,8 @@ cd "$(dirname "$(readlink -f "${0:-.}")")"
 
 AWK_SEPERATORS='[: ]+'
 AWK_DEV_PARSE='/(<([^>]+,)?(UP|DOWN)(,[^>]+)?>|\s(UP|DOWN)\s)/ {print $2;system("")}'
-ICON_UP='wireguard_logo_on.svg'
-ICON_DOWN='wireguard_logo_off.svg'
+ICON_UP='network-vpn'
+ICON_DOWN='network-vpn-disconnected-symbolic'
 
 function create_menu_string() {
 	for dev in $(ip link show type wireguard | \
@@ -15,9 +15,9 @@ function create_menu_string() {
 	do
 		if [[ -n "$(ip link show "${dev}" up type wireguard)" ]]
 		then
-			echo -n "${dev} up|"
+			echo -n "${dev} is up|"
 		else
-			echo -n "${dev} down|"
+			echo -n "${dev} is down|"
 		fi
 	done
 	echo -n '|Quit!quit'
